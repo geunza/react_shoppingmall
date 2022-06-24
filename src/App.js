@@ -1,29 +1,35 @@
-import logo from './logo.svg';
 import './App.css';
 import {Button, Navbar, Container, Nav} from 'react-bootstrap'
 import bg from './bg.png'
 import data from './data.js'
 import { useState } from 'react';
+import { Routes, Route, Link } from 'react-router-dom'
+
+
 
 function App() {
   let [shoes, setShoes] = useState(data);
-  let [shoes_title, setShoes_title] = useState([]);
-  let [shoes_price, setShoes_price] = useState([]);
 
 
   return (
-    <div>
-      <div className="main-bg"></div>
+    <div className="App">
+      <Routes >
+        <Route path="/" element={<div>메인페이지임</div>}></Route>
+        <Route path="/detail" element={<div>상세페이지임</div>}></Route>
+      </Routes>
       <Navbar bg="dark" variant="dark">
         <Container>
         <Navbar.Brand href="#home">Navbar</Navbar.Brand>
         <Nav className="me-auto">
+          <Link to="/">홈</Link>
+          <Link to="/detail">디테일</Link>
           <Nav.Link href="#home">Home</Nav.Link>
           <Nav.Link href="#features">Features</Nav.Link>
           <Nav.Link href="#pricing">Pricing</Nav.Link>
         </Nav>
         </Container>
       </Navbar>
+      <div className="main-bg"></div>
       <div>
         
       </div>
