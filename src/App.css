@@ -1,3 +1,8 @@
+.main-bg{
+  background:url('./bg.png') no-repeat center/ cover;
+  height:300px; 
+}
+
 .App {
   text-align: center;
 }
