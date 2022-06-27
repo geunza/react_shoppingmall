@@ -1,12 +1,11 @@
-import './App.css';
+import './App.css'
 import {Button, Navbar, Container, Nav} from 'react-bootstrap'
 import bg from './bg.png'
 import data from './data.js'
 import {a, b} from './data2.js'
 import Detail from './routes/detail.js'
-import { useState } from 'react';
+import { useState } from 'react'
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
-
 
 function App() {
   let [shoes, setShoes] = useState(data);
@@ -88,7 +87,9 @@ function App() {
 function Card(props){
   return(
     <div className="col-md-4">
-      <img src={`https://codingapple1.github.io/shop/shoes${props.i+1}.jpg`} width="80%" />
+      <Link to={`/detail/${props.i}`}>
+        <img src={`https://codingapple1.github.io/shop/shoes${props.i+1}.jpg`} width="80%" />
+      </Link>
       <h4>{props.v.title}</h4>
       <p>{props.v.price}</p>
     </div>
