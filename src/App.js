@@ -6,13 +6,38 @@ import {a, b} from './data2.js'
 import Detail from './routes/detail.js'
 import { useState } from 'react'
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
+import axios from 'axios'
 
 function App() {
   let [shoes, setShoes] = useState(data);
+  let [count, setCount] = useState(2);
+  let [btn, setBtn] = useState(true);
+  let [loading, setLoading] = useState(false);
   let navigate = useNavigate();
-
   return (
     <div className="App">
+      {
+        loading == true ? 
+          <div>로딩중입니다.</div> :
+          null
+      }
+      {
+        btn == true ? 
+          <button onClick={()=>{
+            setLoading(true);
+            axios.get(`https://codingapple1.github.io/shop/data${count}.json`).then((res)=>{
+              let copy = [...shoes, ...res.data];
+              setShoes(copy);
+              setCount(count + 1);
+              setLoading(false);
+            }).catch(()=>{
+              setBtn(!btn);
+              setLoading(false);
+            })
+          }}>더 끌고오기</button> :
+          null
+      }
+
     {/* <div>{a}</div>
     <div>{b}</div> */}
       <Navbar bg="dark" variant="dark">
