@@ -2,7 +2,12 @@
   background:url('./bg.png') no-repeat center/ cover;
   height:300px; 
 }
-
+.start{
+  opacity:0;
+}
+.end{
+  opacity:1; transition:opacity 0.5s;
+}
 .App {
   text-align: center;
 }
