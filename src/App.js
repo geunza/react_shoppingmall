@@ -4,6 +4,7 @@ import bg from './bg.png'
 import data from './data.js'
 import {a, b} from './data2.js'
 import Detail from './routes/detail.js'
+import Cart from './routes/cart.js'
 import { useState } from 'react'
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
 import axios from 'axios'
@@ -31,6 +32,7 @@ function App() {
               setCount(count + 1);
               setLoading(false);
             }).catch(()=>{
+              alert('마지막 입니다.');
               setBtn(!btn);
               setLoading(false);
             })
@@ -48,6 +50,7 @@ function App() {
           <Nav.Link onClick={()=>{navigate('/detail')}}>Detail</Nav.Link>
           <Nav.Link onClick={()=>{navigate('/about')}}>About</Nav.Link>
           <Nav.Link onClick={()=>{navigate('/event')}}>Event</Nav.Link>
+          <Nav.Link onClick={()=>{navigate('/cart')}}>Cart</Nav.Link>
         </Nav>
         <Link to="/">Home</Link>
         <Link to="/detail">Detail</Link>
@@ -76,6 +79,14 @@ function App() {
             // <Detail shoes={shoes}></Detail>
         }></Route>
         
+        <Route path="/cart" element={
+          <>
+            <Cart></Cart>
+          </>
+        }>
+          
+
+        </Route>
 
         <Route path="/about" element={
           <>
@@ -94,6 +105,7 @@ function App() {
         
         </Route>
 
+
         <Route path="event" element={<Event></Event>}>
           <Route path="one" element={<p>첫 주문시 양배추즙 서비스</p>}>
 
@@ -102,6 +114,7 @@ function App() {
 
           </Route>
         </Route>
+
         <Route path="*" element={<div>404 NOT FOUND </div>}>
         </Route>
       </Routes>
