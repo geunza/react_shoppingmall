@@ -1,0 +1,8 @@
+2022-06-08
+ - module
+    - styled-components, redux 설치
+    - react-router-dom 확인
+ - useEffect 다시 사용해보기
+ - ajax 다른 방식으로 사용해보기(fetch)
+ - Context API 사용해보기
+ - redux dispatch 확인
