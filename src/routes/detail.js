@@ -22,6 +22,7 @@ function Detail(props){
   let [box, setBox] = useState(true);
   let [num, setNum] = useState(0);
   let [tab, setTab] = useState(0);
+  let [fade2, setFade2] = useState('');
   id = parseInt(id);
   let item = props.shoes.find(function(x){
     return x.id == id;
@@ -40,9 +41,11 @@ function Detail(props){
       //clearTimeout(timer);
     }
   }, [box, num, tab] );
-
+  useEffect( ()=>{
+    setTimeout(()=>{setFade2('end')}, 100)
+  }, [] );
   return(
-    <div className="container">
+    <div className={'container start '+fade2}>
       <button onClick={()=>{ setCount(count++) }}>{count}</button>
       <input type="text" onChange={(e)=>{
         setNum(e.target.value);
@@ -86,7 +89,20 @@ function Detail(props){
   )
 }
 function TabContent(props){
-  return [<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][props.tab];
+  let [fade, setFade] = useState('');
+  useEffect( ()=>{
+    setTimeout(()=>{setFade('end')}, 100)
+  return() =>{
+    setFade('');
+  }
+  }, [props.tab] );
+
+
+  return (
+    <div className={'start '+fade}>
+      {[<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][props.tab]}
+    </div>
+  );
   // if(props.tab == 0){
   //   return <div>내용0</div>
   // }else if(props.tab == 1){
