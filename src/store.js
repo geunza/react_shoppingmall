@@ -14,7 +14,14 @@ let cart = createSlice({
             });
             console.log(current(result));
             result.count++;
-        }
+        },
+        deleteItem(state, action){
+            let result = state.find(function(x){
+                return x.id == action.payload;
+            });
+            console.log(current(result));
+            result.count++;
+        },
     }
 });
 export let {addCount} = cart.actions;

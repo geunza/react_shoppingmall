@@ -38,7 +38,7 @@ function Cart(){
                                     </td>
                                     <td>
                                         <button onClick={ ()=>{
-                                            
+                                            dispatch(deleteItem(v.id))
                                         } }>삭제</button>
                                     </td>
                                 </tr>
