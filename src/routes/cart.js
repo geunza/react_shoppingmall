@@ -1,7 +1,7 @@
 
 import {Table} from 'react-bootstrap';
 import { useDispatch, useSelector } from "react-redux"
-import { changeName, addCount } from "./../store.js"
+import { changeName, addCount, deleteItem } from "./../store.js"
 
 function Cart(){
     let state = useSelector((state) => { return state } )
@@ -28,7 +28,7 @@ function Cart(){
                         items.map((v, i, arr)=>{
                             return(
                                 <tr key={i}>
-                                    <td>{i}</td>
+                                    <td>{i} id:{v.id}</td>
                                     <td>{v.name}</td>
                                     <td>{v.count}</td>
                                     <td>
@@ -38,9 +38,10 @@ function Cart(){
                                     </td>
                                     <td>
                                         <button onClick={ ()=>{
-                                            dispatch(deleteItem(v.id))
-                                        } }>삭제</button>
+                                            dispatch(deleteItem(v.id)) 
+                                        } }>-</button>
                                     </td>
+
                                 </tr>
                             )
                         })
