@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom'
 import {Button, Navbar, Container, Nav} from 'react-bootstrap'
 import styled from 'styled-components'
+import { addItem } from "./../store.js"
+import { useDispatch, useSelector } from "react-redux"
 
 // class Detail2 extends react.Component{
 //   componentDidMount(){
@@ -27,6 +29,7 @@ function Detail(props){
   let item = props.shoes.find(function(x){
     return x.id == id;
   });
+  let dispatch = useDispatch();
 
   useEffect( ()=>{ //mount, update시 실행
     //let timer = setTimeout(()=>{
@@ -46,10 +49,10 @@ function Detail(props){
   }, [] );
   return(
     <div className={'container start '+fade2}>
-      <button onClick={()=>{ setCount(count++) }}>{count}</button>
-      <input type="text" onChange={(e)=>{
+      {/* <button onClick={()=>{ setCount(count++) }}>{count}</button> */}
+      {/* <input type="text" onChange={(e)=>{
         setNum(e.target.value);
-      }}/>
+      }}/> */}
       <div>
         {
           box == true ? 
@@ -67,7 +70,14 @@ function Detail(props){
           <h4 className="pt-5">{item.title}</h4>
           <p>{item.content}</p>
           <p>{item.price}원</p>
-          <button className="btn btn-danger">주문하기</button> 
+          <div>
+            <button className="btn btn-danger">주문하기</button> 
+          </div>
+          <div>
+            <button className="btn btn-primary" onClick={ ()=>{
+              dispatch(addItem({id:item.id, name:item.title, count: 1}))
+            } }>장바구니</button> 
+          </div>
         </div>
       </div>
       <Nav variant="tabs"  defaultActiveKey="link0">
