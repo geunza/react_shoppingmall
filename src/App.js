@@ -15,6 +15,7 @@ function App() {
   let [btn, setBtn] = useState(true);
   let [loading, setLoading] = useState(false);
   let navigate = useNavigate();
+  let [recent, setRecent] = useState([1, 2, 3]);
   return (
     <div className="App">
       {
@@ -71,6 +72,7 @@ function App() {
                 }
               </div>
             </div>
+            <Recent recent={recent}></Recent>
           </>
         }></Route>
 
@@ -148,5 +150,19 @@ function Event(){
       <Outlet></Outlet>
     </div>
   )
+}
+function Recent(props){
+  if(props.recent.length > 0){
+    console.log(props.recent)
+    return (
+      <ul>
+        {
+          props.recent.map(function(v, i, arr){
+            <li></li>
+          })
+        }
+      </ul>
+    )
+  }
 }
 export default App;
