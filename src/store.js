@@ -12,19 +12,28 @@ let cart = createSlice({
             let result = state.find(function(x){
                 return x.id == action.payload;
             });
-            console.log(current(result));
             result.count++;
         },
-        deleteItem(state, action){
+        addItem(state, action){
             let result = state.find(function(x){
-                return x.id == action.payload;
+                return x.id == action.payload.id;
             });
-            console.log(current(result));
-            result.count++;
+            if(result == undefined){
+                state.push(action.payload);
+            }else{
+                result.count++;
+            }
+        },
+        deleteItem(state, action){
+            let result = [...state].filter(function(a){
+                return a.id != action.payload;
+            });
+            // state = result;
+            return result;
         },
     }
 });
-export let {addCount} = cart.actions;
+export let {addCount, addItem, deleteItem} = cart.actions;
 
 let user = createSlice({
     name : 'user',
