@@ -5,9 +5,10 @@ import data from './data.js'
 import {a, b} from './data2.js'
 import Detail from './routes/detail.js'
 import Cart from './routes/cart.js'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
 import axios from 'axios'
+import { useQuery } from 'react-query'
 
 function App() {
   let [shoes, setShoes] = useState(data);
@@ -15,7 +16,24 @@ function App() {
   let [btn, setBtn] = useState(true);
   let [loading, setLoading] = useState(false);
   let navigate = useNavigate();
-  let [recent, setRecent] = useState([1, 2, 3]);
+  let watched = JSON.parse(localStorage.getItem('watched'));
+  let [recent, setRecent] = useState([]);
+  let result = useQuery('작명', ()=>
+    axios.get('https://codingapple1.github.io/userdata.json')
+    .then((a)=>{return a.data})
+  );
+  console.log(result);
+
+  useEffect( ()=>{
+    let localWatched = localStorage.getItem('watched');
+    if(localWatched == null){
+      localStorage.setItem('watched', JSON.stringify( [] ));
+    }else{
+      let localData = JSON.parse(localStorage.getItem('watched'));
+      setRecent(localData);
+    }
+
+  }, [] );
   return (
     <div className="App">
       {
@@ -72,12 +90,12 @@ function App() {
                 }
               </div>
             </div>
-            <Recent recent={recent}></Recent>
+            <Recent recent={recent} data={data}></Recent>
           </>
         }></Route>
 
         <Route path="/detail/:id" element={
-          <Detail shoes={shoes}/>
+          <Detail shoes={shoes} setRecent={setRecent}/>
             // <Detail shoes={shoes}></Detail>
         }></Route>
         
@@ -153,15 +171,25 @@ function Event(){
 }
 function Recent(props){
   if(props.recent.length > 0){
-    console.log(props.recent)
     return (
-      <ul>
-        {
-          props.recent.map(function(v, i, arr){
-            <li></li>
-          })
-        }
-      </ul>
+      <div className="recentItems">
+        <h4>최근 본 상품</h4>
+        <ul>
+          {
+            props.recent.map(function(v, i, arr){
+              let result = data.find(function(x){
+                return x.id == v;
+              });
+              return(
+                <li>
+                  <p>{result.title}</p>
+                  <p>{result.price}</p>
+                </li>
+              )
+            })
+          }
+        </ul>
+      </div>
     )
   }
 }

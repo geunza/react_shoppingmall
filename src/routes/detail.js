@@ -35,7 +35,6 @@ function Detail(props){
     //let timer = setTimeout(()=>{
     //  setBox(!box);
     //}, 2000);
-    console.log(tab);
     if(isNaN(num) == true){
       alert('그러지마세요')
       
@@ -47,6 +46,23 @@ function Detail(props){
   useEffect( ()=>{
     setTimeout(()=>{setFade2('end')}, 100)
   }, [] );
+
+  useEffect( ()=>{
+    let watched = localStorage.getItem('watched');
+    watched = JSON.parse(watched);
+    let result = watched.find(function(x){
+      return x == id;
+    });
+    if(result != undefined){
+      let idx = watched.indexOf(result);
+      watched.splice(idx, 1);
+    }
+    watched.unshift(id);
+    localStorage.setItem('watched', JSON.stringify(watched));
+    props.setRecent(watched);
+    console.log(watched)
+  }, [] )
+
   return(
     <div className={'container start '+fade2}>
       {/* <button onClick={()=>{ setCount(count++) }}>{count}</button> */}
